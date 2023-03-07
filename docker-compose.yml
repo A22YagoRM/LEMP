@@ -1,31 +1,40 @@
 version: '3'
 services:
-    drupal:
-        build: apachedrupal
+    nginx:
+        image: nginx
         ports:
-            - 8000:80
-            - 8443:443
+        - 80:80
+        - 80:80
         volumes:
-            - ./drupal:/app/drupal
-            - ./apachedrupal/drupal.conf:/etc/apache2/sites-enabled/drupal.conf
+        - ./html:/app/html
+        - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
 
-            - ./apache/wildcert.pem:/etc/ssl/certs/wildcert.pem
-            - ./apache/wildkey.key:/etc/ssl/private/wildkey.key
+    # drupal:
+    #     build: apachedrupal
+    #     ports:
+    #         - 8000:80
+    #         - 8443:443
+    #     volumes:
+    #         - ./drupal:/app/drupal
+    #         - ./apachedrupal/drupal.conf:/etc/apache2/sites-enabled/drupal.conf
 
-    web:
-        build: apache
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - ./wordpress:/app/wordpress
-            - ./apache/wordpress.conf:/etc/apache2/sites-enabled/wordpress.conf
+    #         - ./apache/wildcert.pem:/etc/ssl/certs/wildcert.pem
+    #         - ./apache/wildkey.key:/etc/ssl/private/wildkey.key
 
-            - ./prestashop:/app/prestashop
-            - ./apache/prestashop.conf:/etc/apache2/sites-enabled/prestashop.conf
+    # web:
+    #     build: apache
+    #     ports:
+    #         - 80:80
+    #         - 443:443
+    #     volumes:
+    #         - ./wordpress:/app/wordpress
+    #         - ./apache/wordpress.conf:/etc/apache2/sites-enabled/wordpress.conf
 
-            - ./apache/wildcert.pem:/etc/ssl/certs/wildcert.pem
-            - ./apache/wildkey.key:/etc/ssl/private/wildkey.key
+    #         - ./prestashop:/app/prestashop
+    #         - ./apache/prestashop.conf:/etc/apache2/sites-enabled/prestashop.conf
+
+    #         - ./apache/wildcert.pem:/etc/ssl/certs/wildcert.pem
+    #         - ./apache/wildkey.key:/etc/ssl/private/wildkey.key
 
     db:
         image: mysql
